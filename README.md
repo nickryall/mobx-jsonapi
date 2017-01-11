@@ -226,14 +226,14 @@ user.setRelationShips({
   }
 });
 
-// Save to server
+// Save to server ( Will send all values via PATCH )
 user.save(null, { wait: true }).then((response) => {
   // Do something
 }).catch((error) => {
   // Alert error
 });
 
-// Set and save at same time
+// Set and save at same time ( Will send only changed values via PATCH )
 user.save({
   attributes: {
     title: 'Mr',
@@ -256,8 +256,7 @@ user.save({
   // Alert error
 });
 
-// Conviencie method to set and save just attributes
-// Note: wait option set to false for optimistic update
+// Conviencie method to set and save just attributes ( Note: 'wait' option set to false for optimistic update. This is available on all CRUD methods )
 user.saveAttributes({
   title: 'Mr',
   firstName: 'Nicholas'
