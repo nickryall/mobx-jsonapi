@@ -202,7 +202,7 @@ class Model {
 
   /**
    * Sets the included into any related collections.
-   * Override this the extending class
+   * Override this in the extending class
    */
   @action setIncluded(included = []) {
     return true;

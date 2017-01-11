@@ -1,10 +1,8 @@
 import request from 'axios';
-import Model from './Model';
-import Collection from './Collection';
-import { user, business } from './fixtures/models';
+import Model from '../src/Model';
+import Collection from '../src/Collection';
+import { user, business } from '../fixtures/models';
 import { toJS } from 'mobx';
-
-jest.useFakeTimers();
 
 describe('Model', function() {
   describe('constructor with no initial state', function() {
