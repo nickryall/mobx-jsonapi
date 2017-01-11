@@ -19,6 +19,11 @@ class Users extends Collection {
   model () {
     return User;
   }
+
+  // Attributes are an observable map so can make user of mobx computed getters
+  @computed get fullName() {
+    return `${this.getAttribute('firstName')} ${this.getAttribute('lastName')}`;
+  }
 }
 
 const users = new Users({
@@ -256,13 +261,14 @@ user.save({
   // Alert error
 });
 
-// Conviencie method to set and save just attributes ( Note: 'wait' option set to false for optimistic update. This is available on all CRUD methods )
+// Convenience method to set and save just attributes 
+( Note: 'wait' option set to false for optimistic update. This is available on all CRUD methods )
 user.saveAttributes({
   title: 'Mr',
   firstName: 'Nicholas'
 }, { wait: false });
 
-user.getAttribute('firstName') // Nicholas
+user.getAttribute('firstName'); // Nicholas
 
 
 ```
