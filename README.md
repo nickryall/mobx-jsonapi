@@ -210,7 +210,7 @@ user.setAttribute('title', 'Master') // Master
 // Computed getter
 user.fullName // Master Nick Ryall
 
-// Set attributes ( Merges values )
+// Set multiple attributes ( Merges values )
 user.setAttributes({
   title: 'Mr',
   firstName: 'Nicholas'
@@ -272,7 +272,6 @@ user.saveAttributes({
 
 user.getAttribute('firstName'); // Nicholas
 
-
 // Fetch user from server
 user.fetch({ wait: true }).then((model, response) => {
   // Do something
@@ -282,6 +281,14 @@ user.fetch({ wait: true }).then((model, response) => {
 
 // Delete model on server and remove from collection if it belongs to one
 user.destroy();
+
+// OR
+
+user.destroy({ wait: true }).then((response) => {
+  // Do something
+}).catch((error) => {
+  // Alert error
+});
 
 
 ```
