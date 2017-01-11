@@ -200,10 +200,10 @@ const user = new User({
 // Get attribute
 user.getAttribute('title') // Mr
 
-// Set attribute
+// Set attribute ( Merges values )
 user.setAttribute('title', 'Master') // Master
 
-// Set attributes
+// Set attributes ( Merges values )
 user.setAttributes({
   title: 'Mr',
   firstName: 'Nicholas'
@@ -212,5 +212,58 @@ user.setAttributes({
 // Get relationship
 user.getRelationship('business').data.id // 1
 user.getRelationship('business').links.self // "http://rakenapp/jsonapi/businesses/1"
+
+// Set relationships ( Merges values )
+user.setRelationShips({
+  "business": {
+    "data": {
+      "type": "businesses",
+      "id": "2"
+    },
+    "links": {
+      "self": "http://rakenapp/jsonapi/businesses/2"
+    }
+  }
+});
+
+// Save to server
+user.save(null, { wait: true }).then((response) => {
+  // Do something
+}).catch((error) => {
+  // Alert error
+});
+
+// Set and save at same time
+user.save({
+  attributes: {
+    title: 'Mr',
+    firstName: 'Nicholas'
+  },
+  relationships: {
+    "business": {
+      "data": {
+        "type": "businesses",
+        "id": "2"
+      },
+      "links": {
+        "self": "http://rakenapp/jsonapi/businesses/2"
+      }
+    }
+  }
+}, { wait: true }).then((response) => {
+  // Do something
+}).catch((error) => {
+  // Alert error
+});
+
+// Conviencie method to set and save just attributes
+// Note: wait option set to false for optimistic update
+user.saveAttributes({
+  title: 'Mr',
+  firstName: 'Nicholas'
+}, { wait: false });
+
+user.getAttribute('firstName') // Nicholas
+
 
 ```
