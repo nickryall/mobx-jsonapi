@@ -59,10 +59,10 @@ describe('Collection', function() {
     });
   });
 
-  describe('constructor with related stores', function() {
-    it('Sets up references to the stores passed in through options', function() {
+  describe('constructor with related instances', function() {
+    it('Sets up references to the instances (model or collection) passed in through options', function() {
       this.collection = new Collection({
-        childStores: {
+        children: {
           relatedStoreOne: {},
           relatedStoreTwo: {}
         }
@@ -229,7 +229,7 @@ describe('Collection', function() {
 
       expect(this.collection.setMeta).toHaveBeenCalledWith(users.meta);
       expect(this.collection.setLinks).toHaveBeenCalledWith(users.links);
-      expect(this.collection.setModels).toHaveBeenCalledWith(users.data);
+      expect(this.collection.setModels).toHaveBeenCalledWith(users.data, { add: true, merge: true, remove: true });
       expect(this.collection.setIncluded).toHaveBeenCalledWith(users.included);
     });
 
@@ -244,7 +244,7 @@ describe('Collection', function() {
 
       expect(this.collection.setMeta).not.toHaveBeenCalled();
       expect(this.collection.setLinks).not.toHaveBeenCalled();
-      expect(this.collection.setModels).toHaveBeenCalledWith(data);
+      expect(this.collection.setModels).toHaveBeenCalledWith(data, { add: true, merge: true, remove: true });
       expect(this.collection.setIncluded).not.toHaveBeenCalled();
     });
   });
@@ -605,7 +605,7 @@ describe('Collection', function() {
       ], { add: true, merge: false, remove: false });
     });
 
-    it('Should not add new models to the collection', function() {
+    it('Should not remove models from the collection', function() {
       expect(this.collection.length).toEqual(3);
     });
   });
@@ -1043,7 +1043,7 @@ describe('Collection', function() {
 
       this.collection.fetch();
 
-      expect(this.collection.set).toHaveBeenCalledWith(businesses, { add: true, change: true, remove: true });
+      expect(this.collection.set).toHaveBeenCalledWith(businesses, { add: true, merge: true, remove: true });
       expect(this.collection.fetching).toBeFalsy();
     });
 
@@ -1065,9 +1065,9 @@ describe('Collection', function() {
       });
 
 
-      this.collection.fetch({ add: true, change: false, remove: false });
+      this.collection.fetch({ add: true, merge: false, remove: false });
 
-      expect(this.collection.set).toHaveBeenCalledWith(businesses, { add: true, change: false, remove: false });
+      expect(this.collection.set).toHaveBeenCalledWith(businesses, { add: true, merge: false, remove: false });
     });
 
     it('Sets the "fetching" request label to falsy if the request fails', function() {

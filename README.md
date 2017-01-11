@@ -107,7 +107,7 @@ users.getModel('1').getAttribute('firstName') // Nick
 users.getModalAt(1).getAttribute('firstName') // John
 
 // Fetch users
-users.fetch({ wait: true }).then((collection, response) => {
+users.fetch().then((collection, response) => {
   // Do something
 }).catch((error) => {
   // Alert error
@@ -273,7 +273,7 @@ user.saveAttributes({
 user.getAttribute('firstName'); // Nicholas
 
 // Fetch user from server
-user.fetch({ wait: true }).then((model, response) => {
+user.fetch().then((model, response) => {
   // Do something
 }).catch((error) => {
   // Alert error

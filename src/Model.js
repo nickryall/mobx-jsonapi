@@ -15,8 +15,7 @@ class Model {
    * unique id of this model, immutable.
    */
   id = null;
-  static urlRoot = '';
-  static type = '';
+  type = '';
 
   @observable fetching;
   @observable saving;
@@ -53,8 +52,7 @@ class Model {
    */
   url() {
     // Get the base URL specified as urlRoot or in the parent:
-    const base = _result(this.constructor, 'url') || 
-    _result(this.constructor, 'urlRoot') || 
+    const base = this.urlRoot || 
     _result(this.parent, 'url') || 
     urlError();
 
@@ -71,14 +69,6 @@ class Model {
    */
   get uniqueId() {
     return this.id ? this.id : this.uuid
-  }
-
-  /**
-   * Getter for the static type property which describes 
-   * the resource type on the server.
-   */
-  get type() {
-    return this.constructor.type;
   }
 
   /**

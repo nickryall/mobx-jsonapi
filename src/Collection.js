@@ -15,7 +15,7 @@ class Collection {
   @observable fetching;
   @observable saving;
 
-  constructor(options = { parent: null, initialState: {}, childStores: {} }) {
+  constructor(options = { parent: null, initialState: {}, children: {} }) {
     this.parent = options.parent;
     this.meta = observable(asMap({}));
     this.links = observable(asMap({}));
@@ -24,10 +24,10 @@ class Collection {
     this.fetching = false;
     this.saving = false;
 
-    // Assign any related stores
-    if (!_isEmpty(options.childStores)) {
-      Object.keys(options.childStores).forEach((key) => {
-        this[key] = options.childStores[key];
+    // Create references to any children
+    if (!_isEmpty(options.children)) {
+      Object.keys(options.children).forEach((key) => {
+        this[key] = options.children[key];
       });
     }
     
@@ -102,7 +102,7 @@ class Collection {
   /**
    * Handles full JSON payload and sets data accordingly.
    */
-  @action set(response) {
+  @action set(response, options = { add: true, merge: true, remove: true }) {
     if (response.meta) {
       this.setMeta(response.meta);
     }
@@ -112,7 +112,7 @@ class Collection {
     }
 
     if (response.data) {
-      this.setModels(response.data);
+      this.setModels(response.data, options);
     }
 
     if (response.included && response.included.length) {
@@ -171,7 +171,7 @@ class Collection {
     // Handle single model
     if (!Array.isArray(models)) models = [models];
 
-    this.setModels(models, { merge: false, add: true, remove: false })
+    this.setModels(models, { add: true, merge: false, remove: false })
 
     return this.models;
   }
@@ -248,7 +248,7 @@ class Collection {
    * use the options to disable adding, changing
    * or removing.
    */
-  @action fetch(options = { add: true, change: true, remove: true }) {
+  @action fetch(options = { add: true, merge: true, remove: true }) {
     this.setRequestLabel('fetching', true);
 
     const url = options.url ? options.url : this.url();
@@ -259,7 +259,7 @@ class Collection {
         params: options.params ? options.params : {}
       })
       .then((response) => {
-        this.set(response.data, { add: options.add, change: options.change, remove: options.remove });
+        this.set(response.data, { add: options.add, merge: options.merge, remove: options.remove });
         this.setRequestLabel('fetching', false);
         resolve(this, response);
       })

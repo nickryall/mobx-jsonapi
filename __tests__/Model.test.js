@@ -99,17 +99,17 @@ describe('Model', function() {
     });
   });
 
-  describe('static type property', function() {
+  describe('type property', function() {
     beforeEach(function() {
       class SubModel extends Model {
-        static type = 'people';
+        type = 'users';
       };
 
       this.model = new SubModel();
     });
 
     it('Provides a getter for the static "type" property', function() {
-      expect(this.model.type).toEqual('people');
+      expect(this.model.type).toEqual('users');
     });
   });
 
@@ -126,9 +126,9 @@ describe('Model', function() {
       expect(this.model.url()).toEqual('/api/v1/user');
     });
 
-    it('can use the urlRoot static property as a base.', function() {
+    it('can use the urlRoot property as a base.', function() {
       class SubModel extends Model {
-        static urlRoot = '/api/v1/people';
+        urlRoot = '/api/v1/people';
       };
 
       this.model = new SubModel();
@@ -516,7 +516,7 @@ describe('Model', function() {
   describe('fetch action', function() {
     beforeEach(function() {
       class SubModel extends Model {
-        static type = 'people';
+        type = 'people';
         url() {
           return '/api/v1/user';
         }
@@ -628,7 +628,7 @@ describe('Model', function() {
   describe('save action', function() {
     beforeEach(function() {
       class SubModel extends Model {
-        static type = 'people';
+        type = 'people';
         url() {
           return '/api/v1/user';
         }
@@ -897,8 +897,8 @@ describe('Model', function() {
   describe('set action', function() {
     beforeEach(function() {
       class SubModel extends Model {
-        static type = 'people';
-        static url = '/api/v1/user';
+        type = 'people';
+        url = '/api/v1/user';
       };
 
       this.model = new SubModel({
@@ -1000,7 +1000,7 @@ describe('Model', function() {
   describe('create action', function() {
     beforeEach(function() {
       class SubModel extends Model {
-        static type = 'people';
+        type = 'people';
         url() {
           return '/api/v1/user';
         }
