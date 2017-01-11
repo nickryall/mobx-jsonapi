@@ -3,7 +3,6 @@
 Mobx Collection and Model classes for working with a JSON:API compliant API. 
 
 http://jsonapi.org
-
 ## Collection Examples
 
 ```js
@@ -18,11 +17,6 @@ class Users extends Collection {
 
   model () {
     return User;
-  }
-
-  // Attributes are an observable map so can make user of mobx computed getters
-  @computed get fullName() {
-    return `${this.getAttribute('firstName')} ${this.getAttribute('lastName')}`;
   }
 }
 
@@ -145,7 +139,7 @@ users.create({
 users.length // 3
 
 // Remove first User
-users.remove(users.getModelAt(0))
+users.remove(users.getModelAt(0));
 
 users.length // 2
 
@@ -159,6 +153,11 @@ import { Model } from 'mobx-jsonapi';
 class User extends Model {
   url() {
     return '/jsonapi/me'
+  }
+
+  // Attributes are an observable map so can make user of mobx computed getters
+  @computed get fullName() {
+    return `${this.getAttribute('title')} ${this.getAttribute('firstName')} ${this.getAttribute('lastName')}`;
   }
 };
 
@@ -207,6 +206,9 @@ user.getAttribute('title') // Mr
 
 // Set attribute ( Merges values )
 user.setAttribute('title', 'Master') // Master
+
+// Computed getter
+user.fullName // Master Nick Ryall
 
 // Set attributes ( Merges values )
 user.setAttributes({
