@@ -37,7 +37,7 @@ const users = {
         }
       },
       "links": {
-        "self": "http://localhost/api/users/1"
+        "self": "http://rakenapp/jsonapi/users/1"
       }
     },
     {
@@ -67,7 +67,7 @@ const users = {
         }
       },
       "links": {
-        "self": "http://localhost/api/users/2"
+        "self": "http://rakenapp/jsonapi/users/2"
       }
     }
   ],
@@ -203,7 +203,7 @@ const businesses = {
         }
       },
       "links": {
-        "self": "http://localhost/api/businesses/1"
+        "self": "http://rakenapp/jsonapi/businesses/1"
       }
     },
     {
@@ -241,7 +241,7 @@ const businesses = {
         }
       },
       "links": {
-        "self": "http://localhost/api/businesses/2"
+        "self": "http://rakenapp/jsonapi/businesses/2"
       }
     }
   ]

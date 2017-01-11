@@ -181,7 +181,7 @@ class Model {
   @action set(response) {
     let newData;
 
-    // Handle wrapped an unwrapped response.
+    // Handle both wrapped and unwrapped response.
     if (response.data) {
       newData = response.data;
     } else {

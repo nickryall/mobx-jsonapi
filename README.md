@@ -8,7 +8,6 @@ http://jsonapi.org
 
 ```js
 import { Collection, Model } from 'mobx-jsonapi';
-import { observer } from 'mobx-react'
 
 class User extends Model {}
 
@@ -62,7 +61,7 @@ const users = new Users({
           }
         },
         "links": {
-          "self": "http://localhost/api/users/1"
+          "self": "http://rakenapp/jsonapi/users/1"
         }
       },
       {
@@ -92,7 +91,7 @@ const users = new Users({
           }
         },
         "links": {
-          "self": "http://localhost/api/users/2"
+          "self": "http://rakenapp/jsonapi/users/2"
         }
       }
     ]
@@ -149,3 +148,69 @@ users.length // 2
 
 ## Model Examples
 
+```js
+import { Model } from 'mobx-jsonapi';
+
+class User extends Model {
+  url() {
+    return '/jsonapi/me'
+  }
+};
+
+const user = new User({
+  initialState: {
+    "data": {
+      "id": "1",
+      "type": "users",
+      "attributes": {
+        "title": "Mr",
+        "firstName": "Nick",
+        "lastName": "Ryall",
+        "email": "nick.ryall@gmail.com",
+        "phone": "021552497",
+        "created_at": "2016-11-02T01:54:57.444Z",
+        "modified_at": "2016-11-02T01:54:57.444Z"
+      },
+      "relationships": {
+        "business": {
+          "data": {
+            "type": "businesses",
+            "id": "1"
+          },
+          "links": {
+            "self": "http://rakenapp/jsonapi/businesses/1"
+          }
+        },
+        "projects": {
+          "data": [
+            {
+              "type": "projects",
+              "id": "1"
+            }
+          ]
+        }
+      },
+      "links": {
+        "self": "http://rakenapp/jsonapi/users/1"
+      }
+    }
+  }
+});
+
+// Get attribute
+user.getAttribute('title') // Mr
+
+// Set attribute
+user.setAttribute('title', 'Master') // Master
+
+// Set attributes
+user.setAttributes({
+  title: 'Mr',
+  firstName: 'Nicholas'
+});
+
+// Get relationship
+user.getRelationship('business').data.id // 1
+user.getRelationship('business').links.self // "http://rakenapp/jsonapi/businesses/1"
+
+```

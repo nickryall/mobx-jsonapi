@@ -1,10 +1,7 @@
 const user = {
-  "jsonapi": {
-    "version": "1.0"
-  },
   "data": {
     "id": "1",
-    "type": "people",
+    "type": "users",
     "attributes": {
       "title": "Mr",
       "firstName": "Nick",
@@ -31,18 +28,15 @@ const user = {
       }
     },
     "links": {
-      "self": "http://localhost/api/user"
+      "self": "http://rakenapp/jsonapi/user"
     }
   }
 }
 
 const business = {
-  "jsonapi": {
-    "version": "1.0"
-  },
   "data": {
     "id": "1",
-    "type": "companies",
+    "type": "businesses",
     "attributes": {
       "name": "Acme Inc",
       "streetAddress": "2033 San Elijo Ave.",
@@ -80,7 +74,7 @@ const business = {
       }
     },
     "links": {
-      "self": "http://localhost/api/company"
+      "self": "http://rakenapp/jsonapi/company"
     }
   }
 };
