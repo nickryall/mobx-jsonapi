@@ -273,4 +273,15 @@ user.saveAttributes({
 user.getAttribute('firstName'); // Nicholas
 
 
+// Fetch user from server
+user.fetch({ wait: true }).then((model, response) => {
+  // Do something
+}).catch((error) => {
+  // Alert error
+});
+
+// Delete model on server and remove from collection if it belongs to one
+user.destroy();
+
+
 ```
