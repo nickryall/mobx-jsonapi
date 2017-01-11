@@ -300,7 +300,7 @@ describe('Collection', function() {
             "modified_at": "2016-11-02T01:54:57.444Z"
           },
           "relationships": {
-            "company": {
+            "business": {
               "data": {
                 "type": "businesses",
                 "id": "1"
@@ -332,7 +332,7 @@ describe('Collection', function() {
             "modified_at": "2016-11-02T01:54:57.444Z"
           },
           "relationships": {
-            "company": {
+            "business": {
               "data": {
                 "type": "businesses",
                 "id": "2"
@@ -389,7 +389,7 @@ describe('Collection', function() {
             "modified_at": "2016-11-02T01:54:57.444Z"
           },
           "relationships": {
-            "company": {
+            "business": {
               "data": {
                 "type": "businesses",
                 "id": "1"
@@ -421,7 +421,7 @@ describe('Collection', function() {
             "modified_at": "2016-11-02T01:54:57.444Z"
           },
           "relationships": {
-            "company": {
+            "business": {
               "data": {
                 "type": "businesses",
                 "id": "2"
@@ -470,7 +470,7 @@ describe('Collection', function() {
             "modified_at": "2016-11-02T01:54:57.444Z"
           },
           "relationships": {
-            "company": {
+            "business": {
               "data": {
                 "type": "businesses",
                 "id": "1"
@@ -502,7 +502,7 @@ describe('Collection', function() {
             "modified_at": "2016-11-02T01:54:57.444Z"
           },
           "relationships": {
-            "company": {
+            "business": {
               "data": {
                 "type": "businesses",
                 "id": "2"
@@ -551,7 +551,7 @@ describe('Collection', function() {
             "modified_at": "2016-11-02T01:54:57.444Z"
           },
           "relationships": {
-            "company": {
+            "business": {
               "data": {
                 "type": "businesses",
                 "id": "1"
@@ -583,7 +583,7 @@ describe('Collection', function() {
             "modified_at": "2016-11-02T01:54:57.444Z"
           },
           "relationships": {
-            "company": {
+            "business": {
               "data": {
                 "type": "businesses",
                 "id": "2"
@@ -631,7 +631,7 @@ describe('Collection', function() {
             "modified_at": "2016-11-02T01:54:57.444Z"
           },
           "relationships": {
-            "company": {
+            "business": {
               "data": {
                 "type": "businesses",
                 "id": "1"
@@ -665,7 +665,7 @@ describe('Collection', function() {
           "modified_at": "2016-11-02T01:54:57.444Z"
         },
         "relationships": {
-          "company": {
+          "business": {
             "data": {
               "type": "businesses",
               "id": "1"
@@ -712,7 +712,7 @@ describe('Collection', function() {
           "modified_at": "2016-11-02T01:54:57.444Z"
         },
         "relationships": {
-          "company": {
+          "business": {
             "data": {
               "type": "businesses",
               "id": "1"
@@ -751,7 +751,7 @@ describe('Collection', function() {
               "modified_at": "2016-11-02T01:54:57.444Z"
             },
             "relationships": {
-              "company": {
+              "business": {
                 "data": {
                   "type": "businesses",
                   "id": "2"
@@ -835,7 +835,7 @@ describe('Collection', function() {
           "modified_at": "2016-11-02T01:54:57.444Z"
         },
         "relationships": {
-          "company": {
+          "business": {
             "data": {
               "type": "businesses",
               "id": "1"
@@ -1111,12 +1111,10 @@ describe('Collection', function() {
           "firstName": "Nick",
           "last_name": "Ryall",
           "email": "nick.ryall@gmail.com",
-          "phone": "021552497",
-          "created_at": "2016-11-02T01:54:57.444Z",
-          "modified_at": "2016-11-02T01:54:57.444Z"
+          "phone": "021552497"
         },
         "relationships": {
-          "company": {
+          "business": {
             "data": {
               "type": "businesses",
               "id": "1"
@@ -1130,9 +1128,6 @@ describe('Collection', function() {
               }
             ]
           }
-        },
-        "links": {
-          "self": "http://localhost/api/users/1"
         }
       });
 
@@ -1148,12 +1143,10 @@ describe('Collection', function() {
           "firstName": "Nick",
           "last_name": "Ryall",
           "email": "nick.ryall@gmail.com",
-          "phone": "021552497",
-          "created_at": "2016-11-02T01:54:57.444Z",
-          "modified_at": "2016-11-02T01:54:57.444Z"
+          "phone": "021552497"
         },
         "relationships": {
-          "company": {
+          "business": {
             "data": {
               "type": "businesses",
               "id": "1"
@@ -1197,12 +1190,10 @@ describe('Collection', function() {
           "firstName": "Nick",
           "last_name": "Ryall",
           "email": "nick.ryall@gmail.com",
-          "phone": "021552497",
-          "created_at": "2016-11-02T01:54:57.444Z",
-          "modified_at": "2016-11-02T01:54:57.444Z"
+          "phone": "021552497"
         },
         "relationships": {
-          "company": {
+          "business": {
             "data": {
               "type": "businesses",
               "id": "1"
@@ -1246,12 +1237,10 @@ describe('Collection', function() {
           "firstName": "Nick",
           "last_name": "Ryall",
           "email": "nick.ryall@gmail.com",
-          "phone": "021552497",
-          "created_at": "2016-11-02T01:54:57.444Z",
-          "modified_at": "2016-11-02T01:54:57.444Z"
+          "phone": "021552497"
         },
         "relationships": {
-          "company": {
+          "business": {
             "data": {
               "type": "businesses",
               "id": "1"
@@ -1285,12 +1274,10 @@ describe('Collection', function() {
           "firstName": "Nick",
           "last_name": "Ryall",
           "email": "nick.ryall@gmail.com",
-          "phone": "021552497",
-          "created_at": "2016-11-02T01:54:57.444Z",
-          "modified_at": "2016-11-02T01:54:57.444Z"
+          "phone": "021552497"
         },
         "relationships": {
-          "company": {
+          "business": {
             "data": {
               "type": "businesses",
               "id": "1"
@@ -1321,12 +1308,10 @@ describe('Collection', function() {
           "firstName": "Nick",
           "last_name": "Ryall",
           "email": "nick.ryall@gmail.com",
-          "phone": "021552497",
-          "created_at": "2016-11-02T01:54:57.444Z",
-          "modified_at": "2016-11-02T01:54:57.444Z"
+          "phone": "021552497"
         },
         "relationships": {
-          "company": {
+          "business": {
             "data": {
               "type": "businesses",
               "id": "1"
@@ -1370,12 +1355,10 @@ describe('Collection', function() {
           "firstName": "Nick",
           "last_name": "Ryall",
           "email": "nick.ryall@gmail.com",
-          "phone": "021552497",
-          "created_at": "2016-11-02T01:54:57.444Z",
-          "modified_at": "2016-11-02T01:54:57.444Z"
+          "phone": "021552497"
         },
         "relationships": {
-          "company": {
+          "business": {
             "data": {
               "type": "businesses",
               "id": "1"
@@ -1427,12 +1410,10 @@ describe('Collection', function() {
           "firstName": "Nick",
           "last_name": "Ryall",
           "email": "nick.ryall@gmail.com",
-          "phone": "021552497",
-          "created_at": "2016-11-02T01:54:57.444Z",
-          "modified_at": "2016-11-02T01:54:57.444Z"
+          "phone": "021552497"
         },
         "relationships": {
-          "company": {
+          "business": {
             "data": {
               "type": "businesses",
               "id": "1"
