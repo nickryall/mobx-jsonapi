@@ -21,7 +21,7 @@ class Model {
   @observable saving;
   @observable deleting;
 
-  constructor(options = { parent: null, initialState: {}, childStores: {} }) {
+  constructor(options = { parent: null, initialState: {}, children: {} }) {
     this.uuid = uuid();
     this.parent = options.parent;
     this.attributes = observable(asMap({}));
@@ -31,13 +31,13 @@ class Model {
     this.deleting = false;
 
     // Assign any child stores
-    if (!_isEmpty(options.childStores)) {
-      Object.keys(options.childStores).forEach((key) => {
-        if (options.childStores[key]) {
+    if (!_isEmpty(options.children)) {
+      Object.keys(options.children).forEach((key) => {
+        if (options.children[key]) {
           // Store reference to child
-          this[key] = options.childStores[key];
+          this[key] = options.children[key];
           // Store reference to this on child as 'parent' property
-          options.childStores[key].parent = this;
+          options.children[key].parent = this;
         }
       });
     }

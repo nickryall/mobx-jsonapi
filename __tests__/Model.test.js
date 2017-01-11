@@ -73,7 +73,7 @@ describe('Model', function() {
   describe('constructor with child stores', function() {
     it('Sets up references to the stores passed in through options', function() {
       this.model = new Model({
-        childStores: {
+        children: {
           childStoreOne: {},
           childStoreTwo: {}
         }
@@ -88,7 +88,7 @@ describe('Model', function() {
       this.childStoreTwo = {};
 
       this.model = new Model({
-        childStores: {
+        children: {
           childStoreOne: this.childStoreOne,
           childStoreTwo: this.childStoreTwo
         }
