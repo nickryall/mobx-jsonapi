@@ -264,7 +264,7 @@ user.save({
 });
 
 // Convenience method to set and save just attributes 
-( Note: 'wait' option set to false for optimistic update. This is available on all CRUD methods )
+// ( Note: 'wait' option set to false for optimistic update. This is available on all CRUD methods )
 user.saveAttributes({
   title: 'Mr',
   firstName: 'Nicholas'
