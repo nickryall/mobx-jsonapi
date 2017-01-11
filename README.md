@@ -23,7 +23,7 @@ class Users extends Collection {
 }
 
 const users = new Users({
-  initialState: {{
+  initialState: {
     "meta": {
       "totalPages": 1
     },
@@ -115,7 +115,7 @@ users.fetch({ wait: true }).then((collection, response) => {
   // Alert error
 });
 
-// Create User
+// Create new User
 users.create({
   "attributes": {
     "title": "Mr",
@@ -138,7 +138,11 @@ users.create({
   // Alert error
 });
 
+users.length // 3
+
 // Remove first User
 users.remove(users.getModelAt(0))
+
+users.length // 2
 
 ```
