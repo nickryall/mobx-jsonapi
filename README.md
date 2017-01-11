@@ -4,7 +4,7 @@ Mobx Collection and Model classes for working with a JSON:API compliant API.
 
 http://jsonapi.org
 
-## Example
+## Collection Examples
 
 ```js
 import { Collection, Model } from 'mobx-jsonapi';
@@ -146,3 +146,6 @@ users.remove(users.getModelAt(0))
 users.length // 2
 
 ```
+
+## Model Examples
+
