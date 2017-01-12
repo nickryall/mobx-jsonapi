@@ -1,3 +1,4 @@
+import _camelCase from 'lodash.camelcase';
 import _last from 'lodash.last';
 import _isEmpty from 'lodash.isempty';
 import _difference from 'lodash.difference';
@@ -24,10 +25,15 @@ class Collection {
     this.fetching = false;
     this.saving = false;
 
-    // Create references to any children
-    if (!_isEmpty(options.children)) {
-      Object.keys(options.children).forEach((key) => {
-        this[key] = options.children[key];
+    // Assign any related stores
+    if (!_isEmpty(options.related)) {
+      Object.keys(options.related).forEach((key) => {
+        if (options.related[key]) {
+          // Store reference to child
+          this[key] = options.related[key];
+          // Store reference to this on child as 'parent' property
+          options.related[key][_camelCase(this.constructor.name)] = this;
+        }
       });
     }
     
@@ -199,15 +205,15 @@ class Collection {
         if (!(model instanceof CollectionModel)) {
           throw new Error(`Collection can only hold ${CollectionModel.type} models.`);
         } else {
-          if (!model.parent) {
-            model.parent = this;
+          if (!model.collection) {
+            model.collection = this;
           }
 
           return model;
         }
       } else {
         return new CollectionModel({
-          parent: this,
+          collection: this,
           initialState: model
         });
       }

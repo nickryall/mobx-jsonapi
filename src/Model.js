@@ -1,4 +1,5 @@
 import uuid from 'uuid-v4';
+import _camelCase from 'lodash.camelcase';
 import _isFunction from 'lodash.isfunction';
 import _isEmpty from 'lodash.isempty';
 import _result from 'lodash.result';
@@ -21,23 +22,23 @@ class Model {
   @observable saving;
   @observable deleting;
 
-  constructor(options = { parent: null, initialState: {}, children: {} }) {
+  constructor(options = { collection: null, initialState: {}, children: {} }) {
     this.uuid = uuid();
-    this.parent = options.parent;
+    this.collection = options.collection;
     this.attributes = observable(asMap({}));
     this.relationships = observable(asMap({}));
     this.fetching = true;
     this.saving = false;
     this.deleting = false;
 
-    // Assign any child stores
-    if (!_isEmpty(options.children)) {
-      Object.keys(options.children).forEach((key) => {
-        if (options.children[key]) {
+    // Assign any related stores
+    if (!_isEmpty(options.related)) {
+      Object.keys(options.related).forEach((key) => {
+        if (options.related[key]) {
           // Store reference to child
-          this[key] = options.children[key];
-          // Store reference to this on child as 'parent' property
-          options.children[key].parent = this;
+          this[key] = options.related[key];
+          // Store reference back to this on child
+          options.related[key][_camelCase(this.constructor.name)] = this;
         }
       });
     }
@@ -51,9 +52,9 @@ class Model {
    * The model URL
    */
   url() {
-    // Get the base URL specified as urlRoot or in the parent:
+    // Get the base URL specified as urlRoot or in the collection:
     const base = this.urlRoot || 
-    _result(this.parent, 'url') || 
+    _result(this.collection, 'url') || 
     urlError();
 
     if (this.isNew) {
@@ -392,14 +393,14 @@ class Model {
    * If `wait: true` is passed, waits for the server to respond before removal.
    */
   @action destroy (options = { wait: false }) {
-    if (this.isNew && _isFunction(this.parent.remove)) {
-      this.parent.remove(this);
+    if (this.isNew && this.collection) {
+      this.collection.remove(this);
 
       return true;
     }
 
-    if (!options.wait && _isFunction(this.parent.remove)) {
-      this.parent.remove(this);
+    if (!options.wait && this.collection) {
+      this.collection.remove(this);
     } else {
       this.setRequestLabel('deleting', true);
     }
@@ -409,8 +410,8 @@ class Model {
         this.url()
       )
       .then((response) => {
-        if (options.wait && _isFunction(this.parent.remove)) {
-          this.parent.remove(this);
+        if (options.wait && this.collection) {
+          this.collection.remove(this);
         }
 
         this.setRequestLabel('deleting', false);
@@ -419,8 +420,8 @@ class Model {
       })
       .catch((error) => {
         // Put it back if delete request fails
-        if (!options.wait && _isFunction(this.parent.add)) {
-          this.parent.add(this);
+        if (!options.wait && this.collection) {
+          this.collection.add(this);
         }
 
         this.setRequestLabel('deleting', false);

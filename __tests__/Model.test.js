@@ -11,12 +11,12 @@ describe('Model', function() {
 
       this.store = {};
       this.model = new Model({
-        parent: this.store
+        collection: this.store
       });
     });
 
-    it ('Sets up a reference to the parent', function() {
-      expect(this.model.parent).toEqual(this.store);
+    it ('Sets up a reference to the collection', function() {
+      expect(this.model.collection).toEqual(this.store);
     });
 
     it ('Sets up an internal uuid', function() {
@@ -44,7 +44,7 @@ describe('Model', function() {
     beforeEach(function() {
       this.store = {};
       this.model = new Model({
-        parent: this.store, 
+        collection: this.store, 
         initialState: {
           jsonapi: {
             version: 1.0
@@ -73,29 +73,32 @@ describe('Model', function() {
   describe('constructor with child stores', function() {
     it('Sets up references to the stores passed in through options', function() {
       this.model = new Model({
-        children: {
-          childStoreOne: {},
-          childStoreTwo: {}
+        related: {
+          relatedStoreOne: {},
+          relatedStoreTwo: {}
         }
       });
 
-      expect(this.model.childStoreOne).toBeDefined();
-      expect(this.model.childStoreTwo).toBeDefined();
+      expect(this.model.relatedStoreOne).toBeDefined();
+      expect(this.model.relatedStoreTwo).toBeDefined();
     });
 
-    it('Sets up "parent" reference to the store on the child store', function() {
-      this.childStoreOne = {};
-      this.childStoreTwo = {};
+    it('Sets up reference to the "this" on the related store', function() {
+      this.relatedStoreOne = {};
+      this.relatedStoreTwo = {};
 
-      this.model = new Model({
-        children: {
-          childStoreOne: this.childStoreOne,
-          childStoreTwo: this.childStoreTwo
+      class SubClassOne extends Model{};
+      class SubClassTwo extends SubClassOne{};
+
+      this.model = new SubClassTwo({
+        related: {
+          childStoreOne: this.relatedStoreOne,
+          childStoreTwo: this.relatedStoreTwo
         }
       });
 
-      expect(this.childStoreOne.parent).toEqual(this.model);
-      expect(this.childStoreTwo.parent).toEqual(this.model);
+      expect(this.relatedStoreOne.subClassTwo).toEqual(this.model);
+      expect(this.relatedStoreTwo.subClassTwo).toEqual(this.model);
     });
   });
 
@@ -140,7 +143,7 @@ describe('Model', function() {
       expect(this.model.url()).toEqual('/api/v1/people/2');
     });
 
-    it('can use the parent URL or function.', function() {
+    it('can use the collection URL or function.', function() {
       this.collection = {
         url() {
           return '/api/v1/people';
@@ -148,7 +151,7 @@ describe('Model', function() {
       };
 
       this.model = new Model({
-        parent: this.collection
+        collection: this.collection
       });
 
       expect(this.model.url()).toEqual('/api/v1/people');
@@ -162,7 +165,7 @@ describe('Model', function() {
   describe('uniqueId getter', function() {
     it('Returns the model.id property if it exists', function() {
       const model = new Model({
-        parent: null,
+        collection: null,
         initialState: {
           data: {
             id: '5',

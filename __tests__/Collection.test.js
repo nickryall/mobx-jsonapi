@@ -10,13 +10,7 @@ describe('Collection', function() {
       spyOn(Collection.prototype, 'set');
 
       this.store = {};
-      this.collection = new Collection({
-        parent: this.store
-      });
-    });
-
-    it ('Sets up a reference to the parent', function() {
-      expect(this.collection.parent).toEqual(this.store);
+      this.collection = new Collection();
     });
 
     it ('Creates a meta map', function() {
@@ -49,7 +43,6 @@ describe('Collection', function() {
     beforeEach(function() {
       this.store = {};
       this.collection = new Collection({
-        parent: this.store, 
         initialState: users
       });
     });
@@ -62,7 +55,7 @@ describe('Collection', function() {
   describe('constructor with related instances', function() {
     it('Sets up references to the instances (model or collection) passed in through options', function() {
       this.collection = new Collection({
-        children: {
+        related: {
           relatedStoreOne: {},
           relatedStoreTwo: {}
         }
@@ -71,25 +64,36 @@ describe('Collection', function() {
       expect(this.collection.relatedStoreOne).toBeDefined();
       expect(this.collection.relatedStoreTwo).toBeDefined();
     });
+
+    it('Sets up reference to the "this" on the related store', function() {
+      this.relatedStoreOne = {};
+      this.relatedStoreTwo = {};
+
+      class SubClassOne extends Collection {};
+
+      this.collection = new SubClassOne({
+        related: {
+          relatedStoreOne: this.childStoreOne,
+          relatedStoreTwo: this.childStoreTwo
+        }
+      });
+
+      expect(this.relatedStoreOne.subClassOne).toEqual(this.model);
+      expect(this.relatedStoreTwo.subClassOne).toEqual(this.model);
+    });
   });
 
   describe('url method', function() {
     it('Create the URL for the collection', function() {
-      const parent = {
-        url: '/api/projects/1'
-      };
-
       class subCollection extends Collection {
         url() {
-          return `${this.parent.url}/users`;
+          return `jsonapi/users`;
         };
       };
 
-      this.collection = new subCollection({
-        parent: parent
-      });
+      this.collection = new subCollection();
 
-      expect(this.collection.url()).toEqual('/api/projects/1/users');
+      expect(this.collection.url()).toEqual('jsonapi/users');
     });
   });
 
@@ -117,9 +121,7 @@ describe('Collection', function() {
 
   describe('"length" getter', function() {
     beforeEach(function() {
-      this.store = {};
       this.collection = new Collection({
-        parent: this.store, 
         initialState: users
       });
     });
@@ -131,9 +133,7 @@ describe('Collection', function() {
 
   describe('modelIds method', function() {
     beforeEach(function() {
-      this.store = {};
       this.collection = new Collection({
-        parent: this.store, 
         initialState: users
       });
     });
@@ -145,9 +145,7 @@ describe('Collection', function() {
 
   describe('getModel method', function() {
     beforeEach(function() {
-      this.store = {};
       this.collection = new Collection({
-        parent: this.store, 
         initialState: users
       });
     });
@@ -160,9 +158,7 @@ describe('Collection', function() {
 
   describe('getModelAt method', function() {
     beforeEach(function() {
-      this.store = {};
       this.collection = new Collection({
-        parent: this.store, 
         initialState: users
       });
     });
@@ -175,9 +171,7 @@ describe('Collection', function() {
 
   describe('getMeta method', function() {
     beforeEach(function() {
-      this.store = {};
       this.collection = new Collection({
-        parent: this.store, 
         initialState: users
       });
     });
@@ -189,9 +183,7 @@ describe('Collection', function() {
 
   describe('getLink method', function() {
     beforeEach(function() {
-      this.store = {};
       this.collection = new Collection({
-        parent: this.store, 
         initialState: users
       });
     });
@@ -280,9 +272,7 @@ describe('Collection', function() {
 
   describe('setModels action with default options', function() {
     beforeEach(function() {
-      this.store = {};
       this.collection = new Collection({
-        parent: this.store, 
         initialState: users
       });
 
@@ -369,9 +359,7 @@ describe('Collection', function() {
 
   describe('setModels action with "add" option set to falsy', function() {
     beforeEach(function() {
-      this.store = {};
       this.collection = new Collection({
-        parent: this.store, 
         initialState: users
       });
 
@@ -450,9 +438,7 @@ describe('Collection', function() {
 
   describe('setModels action with "merge" option set to falsy', function() {
     beforeEach(function() {
-      this.store = {};
       this.collection = new Collection({
-        parent: this.store, 
         initialState: users
       });
 
@@ -533,7 +519,6 @@ describe('Collection', function() {
     beforeEach(function() {
       this.store = {};
       this.collection = new Collection({
-        parent: this.store, 
         initialState: users
       });
 
@@ -922,7 +907,6 @@ describe('Collection', function() {
     beforeEach(function() {
       this.store = {};
       this.collection = new Collection({
-        parent: this.store, 
         initialState: users
       });
     });
@@ -951,9 +935,7 @@ describe('Collection', function() {
 
   describe('removeModels action', function() {
     beforeEach(function() {
-      this.store = {};
       this.collection = new Collection({
-        parent: this.store, 
         initialState: users
       });
     });
