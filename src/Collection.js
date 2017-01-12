@@ -16,8 +16,7 @@ class Collection {
   @observable fetching;
   @observable saving;
 
-  constructor(options = { parent: null, initialState: {}, children: {} }) {
-    this.parent = options.parent;
+  constructor(options = { initialState: {}, related: {} }) {
     this.meta = observable(asMap({}));
     this.links = observable(asMap({}));
     this.models = observable([]);
