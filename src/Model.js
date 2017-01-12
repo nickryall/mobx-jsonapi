@@ -288,7 +288,7 @@ class Model {
       .then((response) => {
         this.set(response.data);
         this.setRequestLabel('saving', false);
-        resolve(this);
+        resolve(this, response);
       })
       .catch((error) => {
         if (!options.wait) {
@@ -297,6 +297,8 @@ class Model {
         }
 
         this.setRequestLabel('saving', false);
+
+        reject(error);
       });
     });
   }

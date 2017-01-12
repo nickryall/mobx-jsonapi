@@ -1011,7 +1011,7 @@ describe('Collection', function() {
       expect(request.get).toHaveBeenCalledWith('/api/v1/users/1/businesses', { params: {} });
     });
 
-    it('Sends the any "params" included in the options argument', function() {
+    it('Sends any "params" included in the options argument', function() {
       spyOn(request, 'get').and.callThrough();
 
       this.collection.fetch({
@@ -1068,6 +1068,29 @@ describe('Collection', function() {
       this.collection.fetch({ add: true, merge: false, remove: false });
 
       expect(this.collection.set).toHaveBeenCalledWith(businesses, { add: true, merge: false, remove: false });
+    });
+    
+    it('allows for the individual set options to be overriden', function() {
+      spyOn(Collection.prototype, 'set');
+
+      spyOn(request, 'get').and.callFake(function(url) {
+        return {
+          then: function(cb) {
+            cb.call(null, {
+              status: 200,
+              data: businesses
+            });
+
+            return this;
+          },
+          catch: ()=> {}
+         }
+      });
+
+
+      this.collection.fetch({ remove: false });
+
+      expect(this.collection.set).toHaveBeenCalledWith(businesses, { add: true, merge: true, remove: false });
     });
 
     it('Sets the "fetching" request label to falsy if the request fails', function() {

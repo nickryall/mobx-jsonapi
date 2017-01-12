@@ -140,7 +140,14 @@ class Collection {
    *
    * You can disable adding, merging or removing.
    */
-  @action setModels(models = [], options = { add: true, merge: true, remove: true }) {
+  @action setModels(models = [], options) {
+    // Merge in the any options with the default
+    options = Object.assign({ 
+      add: true, 
+      merge: true, 
+      remove: true 
+    }, options );
+
     if (options.remove) {
       const ids = models.map((d) => d.id);
 
@@ -248,15 +255,24 @@ class Collection {
    * use the options to disable adding, changing
    * or removing.
    */
-  @action fetch(options = { add: true, merge: true, remove: true }) {
+  @action fetch(options) {
+    // Merge in the any options with the default
+    options = Object.assign({ 
+      url: this.url(),
+      params: {},
+      add: true, 
+      merge: true, 
+      remove: true 
+    }, options );
+
     this.setRequestLabel('fetching', true);
 
     const url = options.url ? options.url : this.url();
 
     return new Promise((resolve, reject) => {
       // Optionally the request above could also be done as
-      request.get(url, {
-        params: options.params ? options.params : {}
+      request.get(options.url, {
+        params: options.params
       })
       .then((response) => {
         this.set(response.data, { add: options.add, merge: options.merge, remove: options.remove });
