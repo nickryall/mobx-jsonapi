@@ -1081,15 +1081,14 @@ describe('Collection', function() {
       spyOn(request, 'get').and.callFake(function(url) {
         return {
           then: function(cb) {
-            return {
-              catch: function(cb) {
-                cb.call(null, {
-                  status: 500
-                });
+            return this;
+          },
+          catch: function(cb) {
+            cb.call(null, {
+              status: 500
+            });
 
-                return this;
-              }
-            }
+            return this;
           }
          }
       });
@@ -1303,7 +1302,13 @@ describe('Collection', function() {
     });
 
     it('Calls the create action on the model with the collections URL', function() {
-      spyOn(Model.prototype, 'create').and.callThrough();
+      spyOn(Model.prototype, 'create').and.callFake(function() {
+        return {
+          then: function() {
+            return this;
+          }
+        }
+      });
 
       this.collection = new Collection();
 
@@ -1331,9 +1336,9 @@ describe('Collection', function() {
             ]
           }
         }
-      }).then((model) => {
-        expect(model.create.calls.mostRecent().args[1].url).toEqual(this.collection.url());
-      });
+      })
+
+      expect(Model.prototype.create.calls.mostRecent().args[1].url).toEqual(this.collection.url());
     });
 
     it('Sets the "creating" label to falsy after the model.create method completes successfuly', function() {
@@ -1392,17 +1397,16 @@ describe('Collection', function() {
       spyOn(Model.prototype, 'create').and.callFake(function(url) {
         return {
           then: function(cb) {
-            return {
-              catch: function(cb) {
-                setTimeout(() => {
-                  cb.call(null, {
-                    status: 500
-                  });
-                });
+            return this;
+          },
+          catch: function(cb) {
+            setTimeout(() => {
+              cb.call(null, {
+                status: 500
+              });
+            });
 
-                return this;
-              }
-            }
+            return this;
           }
          }
       });
