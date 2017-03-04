@@ -22,7 +22,7 @@ class Model {
   @observable saving;
   @observable deleting;
 
-  constructor(options = { collection: null, initialState: {}, related: {} }) {
+  constructor(data, options = { collection: null, related: {} }) {
     this.uuid = uuid();
     this.collection = options.collection;
     this.attributes = observable(asMap({}));
@@ -43,8 +43,8 @@ class Model {
       });
     }
 
-    if (options.initialState) {
-      this.set(options.initialState);
+    if (data) {
+      this.set(data);
     }
   }
 

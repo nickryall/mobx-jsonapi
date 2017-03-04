@@ -8,15 +8,10 @@ import request from 'axios';
 import Model from './Model';
 
 class Collection {
-  /**
-   * unique id of this model, immutable.
-   */
-  id = null;
-
   @observable fetching;
   @observable saving;
 
-  constructor(options = { initialState: {}, related: {} }) {
+  constructor(data, options = { related: {} }) {
     this.meta = observable(asMap({}));
     this.links = observable(asMap({}));
     this.models = observable([]);
@@ -36,8 +31,8 @@ class Collection {
       });
     }
     
-    if (!_isEmpty(options.initialState)) {
-      this.set(options.initialState);
+    if (!_isEmpty(data)) {
+      this.set(data);
     }
   }
 
@@ -211,9 +206,8 @@ class Collection {
           return model;
         }
       } else {
-        return new CollectionModel({
-          collection: this,
-          initialState: model
+        return new CollectionModel(model, {
+          collection: this
         });
       }
     });

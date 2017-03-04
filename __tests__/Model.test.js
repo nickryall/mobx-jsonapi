@@ -10,7 +10,7 @@ describe('Model', function() {
       spyOn(Model.prototype, 'set');
 
       this.store = {};
-      this.model = new Model({
+      this.model = new Model(null, {
         collection: this.store
       });
     });
@@ -44,16 +44,15 @@ describe('Model', function() {
     beforeEach(function() {
       this.store = {};
       this.model = new Model({
+        jsonapi: {
+          version: 1.0
+        },
+        data: user.data,
+        included: [
+          business
+        ]
+      }, {
         collection: this.store, 
-        initialState: {
-          jsonapi: {
-            version: 1.0
-          },
-          data: user.data,
-          included: [
-            business
-          ]
-        }
       });
     });
 
@@ -72,7 +71,7 @@ describe('Model', function() {
 
   describe('constructor with child stores', function() {
     it('Sets up references to the stores passed in through options', function() {
-      this.model = new Model({
+      this.model = new Model(null, {
         related: {
           relatedStoreOne: {},
           relatedStoreTwo: {}
@@ -90,7 +89,7 @@ describe('Model', function() {
       class SubClassOne extends Model{};
       class SubClassTwo extends SubClassOne{};
 
-      this.model = new SubClassTwo({
+      this.model = new SubClassTwo(null, {
         related: {
           childStoreOne: this.relatedStoreOne,
           childStoreTwo: this.relatedStoreTwo
@@ -150,7 +149,7 @@ describe('Model', function() {
         }
       };
 
-      this.model = new Model({
+      this.model = new Model(null, {
         collection: this.collection
       });
 
@@ -165,15 +164,12 @@ describe('Model', function() {
   describe('uniqueId getter', function() {
     it('Returns the model.id property if it exists', function() {
       const model = new Model({
-        collection: null,
-        initialState: {
-          data: {
-            id: '5',
-            type: 'people',
-            attributes: {},
-            relationships: {}
-          }
-        }
+        id: '5',
+        type: 'people',
+        attributes: {},
+        relationships: {}
+      }, {
+        collection: null
       });
 
       expect(model.uniqueId).toEqual('5');
@@ -199,9 +195,7 @@ describe('Model', function() {
 
   describe('getAttribute method', function() {
     beforeEach(function() {
-      this.model = new Model({
-        initialState: user
-      });
+      this.model = new Model(user);
     });
 
     it('returns the value of the attribute key given', function() {
@@ -211,9 +205,7 @@ describe('Model', function() {
 
   describe('getRelationship method', function() {
     beforeEach(function() {
-      this.model = new Model({
-        initialState: user
-      });
+      this.model = new Model(user);
     });
 
     it('returns the relationship with the name given', function() {
@@ -307,9 +299,7 @@ describe('Model', function() {
 
   describe('setRelationships action', function() {
     beforeEach(function() {
-      this.model = new Model({
-        initialState:  user
-      });
+      this.model = new Model(user);
     });
 
 
@@ -371,9 +361,7 @@ describe('Model', function() {
 
   describe('setToOneRelationship action', function() {
     beforeEach(function() {
-      this.model = new Model({
-        initialState:  user
-      });
+      this.model = new Model(user);
     });
 
     it('Is a no-op if called on a to-many relationship', function() {
@@ -499,14 +487,7 @@ describe('Model', function() {
 
   describe('clearRelationships action', function() {
     beforeEach(function() {
-      this.model = new Model({
-        initialState: {
-          jsonapi: {
-            version: 1.0
-          },
-          data: user
-        }
-      });
+      this.model = new Model(user);
     });
 
     it('Clears all relationships', function() {
@@ -525,9 +506,7 @@ describe('Model', function() {
         }
       };
 
-      this.model = new SubModel({
-        initialState: user
-      });
+      this.model = new SubModel(user);
     });
 
     it('Sets the "fetching" request label to truthy', function() {
@@ -637,9 +616,7 @@ describe('Model', function() {
         }
       };
 
-      this.model = new SubModel({
-        initialState: user
-      });
+      this.model = new SubModel(user);
     });
 
     it('Sends patch request to the URL if model has an ID', function() {
@@ -904,9 +881,7 @@ describe('Model', function() {
         url = '/api/v1/user';
       };
 
-      this.model = new SubModel({
-        initialState: user
-      });
+      this.model = new SubModel(user);
     });
 
     it('Should merge in the attributes and the relationships', function() {
@@ -1010,36 +985,29 @@ describe('Model', function() {
       };
 
       this.model = new SubModel({
-        initialState: {
-          jsonapi: {
-            version: 1.0
-          },
-          data: {
-            "attributes": {
-            "title": "Mr",
-            "firstName": "Nick",
-            "lastName": "Ryall",
-            "email": "nick.ryall@gmail.com",
-            "phone": "021552497",
-            "created_at": "2016-11-02T01:54:57.444Z",
-            "modified_at": "2016-11-02T01:54:57.444Z"
-            },
-            "relationships": {
-              "business": {
-                "data": {
-                  "type": "businesses",
-                  "id": "1"
-                }
-              },
-              "projects": {
-                "data": [
-                  {
-                    "type": "projects",
-                    "id": "1"
-                  }
-                ]
-              }
+        "attributes": {
+          "title": "Mr",
+          "firstName": "Nick",
+          "lastName": "Ryall",
+          "email": "nick.ryall@gmail.com",
+          "phone": "021552497",
+          "created_at": "2016-11-02T01:54:57.444Z",
+          "modified_at": "2016-11-02T01:54:57.444Z"
+        },
+        "relationships": {
+          "business": {
+            "data": {
+              "type": "businesses",
+              "id": "1"
             }
+          },
+          "projects": {
+            "data": [
+              {
+                "type": "projects",
+                "id": "1"
+              }
+            ]
           }
         }
       });
