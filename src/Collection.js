@@ -297,9 +297,7 @@ class Collection {
 
     const ModelClass = this.model();
 
-    const model = new ModelClass({
-      initialState: data
-    });
+    const model = new ModelClass(data);
 
     return new Promise((resolve, reject) => {
       if (!options.wait) {
