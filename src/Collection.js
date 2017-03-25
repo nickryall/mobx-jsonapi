@@ -2,7 +2,7 @@ import _camelCase from 'lodash.camelcase';
 import _last from 'lodash.last';
 import _isEmpty from 'lodash.isempty';
 import _difference from 'lodash.difference';
-import { observable, asMap,  action } from 'mobx';
+import { observable, asMap,  action, computed } from 'mobx';
 import request from 'axios';
 
 import Model from './Model';
@@ -60,7 +60,7 @@ class Collection {
   /**
    * Getter for the collection length
    */
-  get length() {
+  @computed get length() {
     return this.models.length;
   }
 
@@ -212,7 +212,7 @@ class Collection {
       }
     });
 
-    this.models = this.models.concat(instances);
+    this.models.push.apply(this.models, instances);
 
     return instances;
   }
