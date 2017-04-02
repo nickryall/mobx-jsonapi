@@ -212,7 +212,7 @@ class Collection {
       }
     });
 
-    this.models.push.apply(this.models, instances);
+    this.models.push(...instances);
 
     return instances;
   }
