@@ -12,8 +12,8 @@ class Collection {
   @observable saving;
 
   constructor(data, options = { related: {} }) {
-    this.meta = observable(asMap({}));
-    this.links = observable(asMap({}));
+    this.meta = observable.map({});
+    this.links = observable.map({});
     this.models = observable([]);
     
     this.fetching = false;

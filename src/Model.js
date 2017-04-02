@@ -25,8 +25,8 @@ class Model {
   constructor(data, options = { collection: null, related: {} }) {
     this.uuid = uuid();
     this.collection = options.collection;
-    this.attributes = observable(asMap({}));
-    this.relationships = observable(asMap({}));
+    this.attributes = observable.map({});
+    this.relationships = observable.map({});
     this.fetching = true;
     this.saving = false;
     this.deleting = false;
