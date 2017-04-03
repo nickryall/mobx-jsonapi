@@ -556,7 +556,7 @@ describe('Collection', function() {
     });
   });
 
-  describe('add action', function() {
+  describe('addModels action', function() {
     beforeEach(function() {
       spyOn(Collection.prototype, 'setModels').and.callThrough();
       this.collection = new Collection();
@@ -631,13 +631,13 @@ describe('Collection', function() {
         }
       };
 
-      this.collection.add(modelJSONWrapped);
+      this.collection.addModels(modelJSONWrapped);
 
       expect(this.collection.setModels).toHaveBeenCalledWith([modelJSONWrapped], { add: true, remove: false, merge: false });
 
       expect(this.collection.getModelAt(0).getAttribute('first_name')).toEqual('Nick');
 
-      this.collection.add(modelJSON);
+      this.collection.addModels(modelJSON);
 
       expect(this.collection.setModels).toHaveBeenCalledWith([modelJSON], { add: true, remove: false, merge: false });
 
@@ -715,13 +715,13 @@ describe('Collection', function() {
         }
       });
 
-      this.collection.add(newModel);
+      this.collection.addModels(newModel);
 
       expect(this.collection.getModel('2').getAttribute('email')).toEqual('john.jones@gmail.com');
     });
 
     it('Can receive an array of JSON representations', function() {
-      this.collection.add(users.data);
+      this.collection.addModels(users.data);
 
       expect(this.collection.getModel('1').getAttribute('email')).toEqual('nick.ryall@gmail.com');
       expect(this.collection.getModel('2').getAttribute('email')).toEqual('john.jones@gmail.com');
@@ -732,7 +732,7 @@ describe('Collection', function() {
 
       const newModel2 = new Model(users.data[1]);
 
-      this.collection.add([
+      this.collection.addModels([
         newModel1,
         newModel2
       ]);
@@ -742,7 +742,7 @@ describe('Collection', function() {
     });
   });
 
-  describe('addModels action', function() {
+  describe('pushModels action', function() {
     it('Instantiates models from JSON', function() {
       class SubModel extends Model {
         static type = 'users';
@@ -756,7 +756,7 @@ describe('Collection', function() {
 
       this.collection = new SubCollection();
 
-      this.collection.addModels({
+      this.collection.pushModels({
         "id": "1",
         "type": "users",
         "attributes": {
@@ -809,7 +809,7 @@ describe('Collection', function() {
 
       const newModel2 = new SubModel(users.data[1]);
 
-      this.collection.addModels([
+      this.collection.pushModels([
         newModel1,
         newModel2
       ]);
@@ -834,15 +834,15 @@ describe('Collection', function() {
       const model = new Model();
 
       expect(() => {
-        this.collection.addModels(model);
+        this.collection.pushModels(model);
       }).toThrow(new Error('Collection can only hold users models.'));
 
     });
   });
 
-  describe('remove action', function() {
+  describe('removeModels action', function() {
     beforeAll(function() {
-      spyOn(Collection.prototype, 'removeModels').and.callThrough();
+      spyOn(Collection.prototype, 'spliceModels').and.callThrough();
     });
 
     beforeEach(function() {
@@ -851,28 +851,28 @@ describe('Collection', function() {
     });
 
     it('Finds the unique ids of the models(s) and passes them to the removeModels action', function() {
-      this.collection.remove([
+      this.collection.removeModels([
         this.collection.getModelAt(0)
       ]);
 
-      expect(this.collection.removeModels).toHaveBeenCalledWith(['1']);
+      expect(this.collection.spliceModels).toHaveBeenCalledWith(['1']);
       expect(this.collection.length).toEqual(1);
 
       const newModel = new Model();
 
       // Add a new model with no server Id.
-      this.collection.add(newModel);
+      this.collection.addModels(newModel);
 
-      this.collection.remove([
+      this.collection.removeModels([
         this.collection.getModelAt(1)
       ]);
 
-      expect(this.collection.removeModels).toHaveBeenCalledWith([newModel.uniqueId]);
+      expect(this.collection.spliceModels).toHaveBeenCalledWith([newModel.uniqueId]);
       expect(this.collection.length).toEqual(1);
     });
   });
 
-  describe('removeModels action', function() {
+  describe('spliceModels action', function() {
     beforeEach(function() {
       this.collection = new Collection(users);
     });
@@ -881,15 +881,15 @@ describe('Collection', function() {
       const newModel = new Model();
 
       // Add a new model with no server Id.
-      this.collection.add(newModel);
+      this.collection.addModels(newModel);
 
       expect(this.collection.length).toEqual(3);
 
-      this.collection.removeModels(['2']);
+      this.collection.spliceModels(['2']);
 
       expect(this.collection.length).toEqual(2);
 
-      this.collection.removeModels([newModel.uniqueId]);
+      this.collection.spliceModels([newModel.uniqueId]);
 
       expect(this.collection.length).toEqual(1);
     });
@@ -1073,7 +1073,7 @@ describe('Collection', function() {
     it('Exits if called with and model id that already exists in collection', function() {
       this.collection = new Collection();
 
-      this.collection.add(users.data);
+      this.collection.addModels(users.data);
 
       // No op as model with id exists
       this.collection.create({

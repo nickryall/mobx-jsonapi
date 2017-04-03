@@ -394,13 +394,13 @@ class Model {
    */
   @action destroy (options = { wait: false }) {
     if (this.isNew && this.collection) {
-      this.collection.remove(this);
+      this.collection.removeModels(this);
 
       return true;
     }
 
     if (!options.wait && this.collection) {
-      this.collection.remove(this);
+      this.collection.removeModels(this);
     } else {
       this.setRequestLabel('deleting', true);
     }
@@ -411,7 +411,7 @@ class Model {
       )
       .then((response) => {
         if (options.wait && this.collection) {
-          this.collection.remove(this);
+          this.collection.removeModels(this);
         }
 
         this.setRequestLabel('deleting', false);
@@ -421,7 +421,7 @@ class Model {
       .catch((error) => {
         // Put it back if delete request fails
         if (!options.wait && this.collection) {
-          this.collection.add(this);
+          this.collection.addModels(this);
         }
 
         this.setRequestLabel('deleting', false);

@@ -151,7 +151,7 @@ class Collection {
     if (options.remove) {
       const ids = models.map((d) => d.id);
 
-      this.removeModels(_difference(this.modelIds(), ids));
+      this.spliceModels(_difference(this.modelIds(), ids));
     }
 
     models.forEach((data) => {
@@ -159,7 +159,7 @@ class Collection {
 
       if (model && options.merge) model.set(data);
 
-      if (!model && options.add) this.addModels(data);
+      if (!model && options.add) this.pushModels(data);
     })
   }
   
@@ -174,7 +174,7 @@ class Collection {
   /**
    * Add a model (or an array of models) to the collection
    */
-  @action add(models) {
+  @action addModels(models) {
     // Handle single model
     if (!Array.isArray(models)) models = [models];
 
@@ -187,7 +187,7 @@ class Collection {
    * Adds a collection of models.
    * Returns the added models.
    */
-  @action addModels (models) {
+  @action pushModels(models) {
     // Handle single model
     if (!Array.isArray(models)) models = [models];
 
@@ -220,7 +220,7 @@ class Collection {
   /**
    * Remove a model (or an array of models) from the collection
    */
-  @action remove(models) {
+  @action removeModels(models) {
     // Handle single model
     if (!Array.isArray(models)) models = [models];
 
@@ -232,13 +232,13 @@ class Collection {
       return model.id;
     });
 
-    this.removeModels(ids);
+    this.spliceModels(ids);
   }
 
   /**
    * Removes the models with the given ids or uuids
    */
-  @action removeModels(ids = []) {
+  @action spliceModels(ids = []) {
     ids.forEach((id) => {
       const model = this.getModel(id);
       if (!model) return;
@@ -301,7 +301,7 @@ class Collection {
 
     return new Promise((resolve, reject) => {
       if (!options.wait) {
-        this.add(model);
+        this.addModels(model);
         resolve(model);
       } else {
         this.setRequestLabel('saving', true);
@@ -316,7 +316,7 @@ class Collection {
       )
       .then((model, response) => {
         if (options.wait) {
-          this.add(model);
+          this.addModels(model);
         }
 
         this.setRequestLabel('saving', false);
@@ -327,7 +327,7 @@ class Collection {
         this.setRequestLabel('saving', false);
 
         // Remove the model if unsuccessful
-        this.remove(model);
+        this.removeModels(model);
 
         reject(error);
       });

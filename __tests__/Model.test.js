@@ -1435,7 +1435,7 @@ describe('Model', function() {
       });
 
       this.collection = new SubCollection();
-      this.collection.add([
+      this.collection.addModels([
         business,
         newModel
       ]);
