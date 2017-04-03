@@ -15,8 +15,8 @@ const users = {
       "type": "users",
       "attributes": {
         "title": "Mr",
-        "firstName": "Nick",
-        "lastName": "Ryall",
+        "first_name": "Nick",
+        "last_name": "Ryall",
         "email": "nick.ryall@gmail.com",
         "phone": "021552497"
       },
@@ -37,7 +37,7 @@ const users = {
         }
       },
       "links": {
-        "self": "http://rakenapp/jsonapi/users/1"
+        "self": "http://example.com/jsonapi/users/1"
       }
     },
     {
@@ -45,8 +45,8 @@ const users = {
       "type": "users",
       "attributes": {
         "title": "Mr",
-        "firstName": "John",
-        "lastName": "Jones",
+        "first_name": "John",
+        "last_name": "Jones",
         "email": "john.jones@gmail.com",
         "phone": "021552497",
       },
@@ -67,7 +67,7 @@ const users = {
         }
       },
       "links": {
-        "self": "http://rakenapp/jsonapi/users/2"
+        "self": "http://example.com/jsonapi/users/2"
       }
     }
   ],
@@ -77,20 +77,15 @@ const users = {
       type: 'businesses',
       "attributes": {
         "name": "Acme Inc",
-        "street_address": "2033 San Elijo Ave.",
-        "city": "Cardiff by the Sea",
-        "state": "CA",
-        "zipcode": "92007",
-        "country": "United States",
+        "street_address": "59 Rua Road.",
+        "city": "Auckland",
+        "state": "Auckland",
+        "zip_code": "0602",
+        "country": "New Zealand",
         "phone": "021552497",
         "subdomain": "acme",
         "logo": "https://mybucket.s3.amazonaws.com/logo.png",
         "pdf_header_background": "#000",
-        "cloud_services": {
-          "box": false,
-          "dropbox": false,
-          "google_drive": false
-        },
         "created_at": "2016-11-02T01:54:57.548Z",
         "modified_at": "2016-11-02T01:54:57.548Z"
       },
@@ -119,17 +114,12 @@ const users = {
         "street_address": "59 Rua Road.",
         "city": "Auckland",
         "state": "Auckland",
-        "zipcode": "0602",
+        "zip_code": "0602",
         "country": "New Zealand",
         "phone": "021552497",
         "subdomain": "webinc",
         "logo": "https://mybucket.s3.amazonaws.com/logo.png",
         "pdf_header_background": "#000",
-        "cloud_services": {
-          "box": false,
-          "dropbox": false,
-          "google_drive": false
-        },
         "created_at": "2016-11-02T01:54:57.548Z",
         "modified_at": "2016-11-02T01:54:57.548Z"
       },
@@ -170,14 +160,14 @@ const businesses = {
       "type": "businesses",
       "attributes": {
         "name": "Acme Inc",
-        "streetAddress": "2033 San Elijo Ave.",
-        "city": "Cardiff by the Sea",
-        "state": "CA",
-        "zipcode": "92007",
-        "country": "United States",
+        "street_address": "98 Gilles Avenue.",
+        "city": "Auckland",
+        "state": "Auckland",
+        "zip_code": "1023",
+        "country": "New Zealand",
         "phone": "021552497",
         "subdomain": "acme",
-        "primaryColor": "#005493"
+        "primary_color": "#005493"
       },
       "relationships": {
         "subscription": {
@@ -203,7 +193,7 @@ const businesses = {
         }
       },
       "links": {
-        "self": "http://rakenapp/jsonapi/businesses/1"
+        "self": "http://example.com/jsonapi/businesses/1"
       }
     },
     {
@@ -211,14 +201,14 @@ const businesses = {
       "type": "businesses",
       "attributes": {
         "name": "Another Company",
-        "streetAddress": "59 Rua Road.",
+        "street_address": "59 Rua Road.",
         "city": "Auckland",
         "state": "Auckland",
-        "zipcode": "0602",
+        "zip_code": "0602",
         "country": "New Zealand",
         "phone": "021552497",
         "subdomain": "acme",
-        "primaryColor": "#005493"
+        "primary_color": "#005493"
       },
       "relationships": {
         "subscription": {
@@ -241,7 +231,7 @@ const businesses = {
         }
       },
       "links": {
-        "self": "http://rakenapp/jsonapi/businesses/2"
+        "self": "http://example.com/jsonapi/businesses/2"
       }
     }
   ]

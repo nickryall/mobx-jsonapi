@@ -4,8 +4,8 @@ const user = {
     "type": "users",
     "attributes": {
       "title": "Mr",
-      "firstName": "Nick",
-      "lastName": "Ryall",
+      "first_name": "Nick",
+      "last_name": "Ryall",
       "email": "nick.ryall@gmail.com",
       "phone": "021552497",
       "created_at": "2016-11-02T01:54:57.444Z",
@@ -39,14 +39,14 @@ const business = {
     "type": "businesses",
     "attributes": {
       "name": "Acme Inc",
-      "streetAddress": "2033 San Elijo Ave.",
-      "city": "Cardiff by the Sea",
-      "state": "CA",
-      "zipcode": "92007",
-      "country": "United States",
+      "street_address": "98 Gilles Avenue.",
+      "city": "Auckland",
+      "state": "Auckland",
+      "zip_code": "1023",
+      "country": "New Zealand",
       "phone": "021552497",
       "subdomain": "acme",
-      "primaryColor": "#005493"
+      "primary_color": "#005493"
     },
     "relationships": {
       "logo": {

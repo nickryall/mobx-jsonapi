@@ -144,7 +144,7 @@ describe('Collection', function() {
 
     it('returns the the model with the given unique id', function() {
       const model = this.collection.getModel('2');
-      expect(model.getAttribute('firstName')).toEqual('John');
+      expect(model.getAttribute('first_name')).toEqual('John');
     });
   });
 
@@ -155,7 +155,7 @@ describe('Collection', function() {
 
     it('returns the the model at the give index', function() {
       const model = this.collection.getModelAt(0);
-      expect(model.getAttribute('firstName')).toEqual('Nick');
+      expect(model.getAttribute('first_name')).toEqual('Nick');
     });
   });
 
@@ -208,17 +208,6 @@ describe('Collection', function() {
       expect(this.collection.setModels).toHaveBeenCalledWith(users.data, { add: true, merge: true, remove: true });
       expect(this.collection.setIncluded).toHaveBeenCalledWith(users.included);
     });
-
-    // it('Calls the correct set method for each data type', function() {
-    //   const data = [].concat(users.data);
-
-    //   this.collection = new Collection(data);
-
-    //   expect(this.collection.setMeta).not.toHaveBeenCalled();
-    //   expect(this.collection.setLinks).not.toHaveBeenCalled();
-    //   expect(this.collection.setModels).toHaveBeenCalledWith(data, { add: true, merge: true, remove: true });
-    //   expect(this.collection.setIncluded).not.toHaveBeenCalled();
-    // });
   });
 
   describe('setMeta action', function() {
@@ -260,7 +249,7 @@ describe('Collection', function() {
           "type": "users",
           "attributes": {
             "title": "Mr",
-            "firstName": "James",
+            "first_name": "James",
             "last_name": "Thomas",
             "email": "james.thomas@gmail.com",
             "phone": "021552497",
@@ -292,7 +281,7 @@ describe('Collection', function() {
           "type": "users",
           "attributes": {
             "title": "Master",
-            "firstName": "John",
+            "first_name": "John",
             "last_name": "Jones",
             "email": "john.jones@gmail.com",
             "phone": "021552497",
@@ -345,7 +334,7 @@ describe('Collection', function() {
           "type": "users",
           "attributes": {
             "title": "Mr",
-            "firstName": "James",
+            "first_name": "James",
             "last_name": "Thomas",
             "email": "james.thomas@gmail.com",
             "phone": "021552497",
@@ -377,7 +366,7 @@ describe('Collection', function() {
           "type": "users",
           "attributes": {
             "title": "Master",
-            "firstName": "John",
+            "first_name": "John",
             "last_name": "Jones",
             "email": "john.jones@gmail.com",
             "phone": "021552497",
@@ -422,7 +411,7 @@ describe('Collection', function() {
           "type": "users",
           "attributes": {
             "title": "Mr",
-            "firstName": "James",
+            "first_name": "James",
             "last_name": "Thomas",
             "email": "james.thomas@gmail.com",
             "phone": "021552497",
@@ -454,7 +443,7 @@ describe('Collection', function() {
           "type": "users",
           "attributes": {
             "title": "Master",
-            "firstName": "John",
+            "first_name": "John",
             "last_name": "Jones",
             "email": "john.jones@gmail.com",
             "phone": "021552497",
@@ -500,7 +489,7 @@ describe('Collection', function() {
           "type": "users",
           "attributes": {
             "title": "Mr",
-            "firstName": "James",
+            "first_name": "James",
             "last_name": "Thomas",
             "email": "james.thomas@gmail.com",
             "phone": "021552497",
@@ -532,7 +521,7 @@ describe('Collection', function() {
           "type": "users",
           "attributes": {
             "title": "Master",
-            "firstName": "John",
+            "first_name": "John",
             "last_name": "Jones",
             "email": "john.jones@gmail.com",
             "phone": "021552497",
@@ -580,7 +569,7 @@ describe('Collection', function() {
           "type": "users",
           "attributes": {
             "title": "Mr",
-            "firstName": "Nick",
+            "first_name": "Nick",
             "last_name": "Ryall",
             "email": "nick.ryall@gmail.com",
             "phone": "021552497",
@@ -614,7 +603,7 @@ describe('Collection', function() {
         "type": "users",
         "attributes": {
           "title": "Mr",
-          "firstName": "Tim",
+          "first_name": "Tim",
           "last_name": "Smith",
           "email": "tim.smith@gmail.com",
           "phone": "021552497",
@@ -646,13 +635,13 @@ describe('Collection', function() {
 
       expect(this.collection.setModels).toHaveBeenCalledWith([modelJSONWrapped], { add: true, remove: false, merge: false });
 
-      expect(this.collection.getModelAt(0).getAttribute('firstName')).toEqual('Nick');
+      expect(this.collection.getModelAt(0).getAttribute('first_name')).toEqual('Nick');
 
       this.collection.add(modelJSON);
 
       expect(this.collection.setModels).toHaveBeenCalledWith([modelJSON], { add: true, remove: false, merge: false });
 
-      expect(this.collection.getModelAt(1).getAttribute('firstName')).toEqual('Tim');
+      expect(this.collection.getModelAt(1).getAttribute('first_name')).toEqual('Tim');
     });
 
     it('Can receive a single JSON representation of a model', function() {
@@ -661,7 +650,7 @@ describe('Collection', function() {
         "type": "users",
         "attributes": {
           "title": "Mr",
-          "firstName": "Nick",
+          "first_name": "Nick",
           "last_name": "Ryall",
           "email": "nick.ryall@gmail.com",
           "phone": "021552497",
@@ -698,7 +687,7 @@ describe('Collection', function() {
         "type": "users",
         "attributes": {
           "title": "Mr",
-          "firstName": "John",
+          "first_name": "John",
           "last_name": "Jones",
           "email": "john.jones@gmail.com",
           "phone": "021552497",
@@ -772,7 +761,7 @@ describe('Collection', function() {
         "type": "users",
         "attributes": {
           "title": "Mr",
-          "firstName": "Nick",
+          "first_name": "Nick",
           "last_name": "Ryall",
           "email": "nick.ryall@gmail.com",
           "phone": "021552497",
@@ -918,37 +907,53 @@ describe('Collection', function() {
     });
 
     it('Sets the "fetching" request label to truthy', function() {
-      this.collection.fetch();
+      this.collection.fetch().then(() => {
+
+      }).catch(() => {
+
+      });
 
       expect(this.collection.fetching).toBeTruthy();
     });
 
     it('Calls a get request with the collections url by default', function() {
-      spyOn(request, 'get').and.callThrough();
+      spyOn(request, 'get');
 
-      this.collection.fetch();
+      this.collection.fetch().then(() => {
+
+      }).catch(() => {
+        
+      });
 
       expect(request.get).toHaveBeenCalledWith(this.collection.url(), { params: {} });
     });
 
     it('Calls a get request with the url passed in though options', function() {
-      spyOn(request, 'get').and.callThrough();
+      spyOn(request, 'get');
 
       this.collection.fetch({
         url: '/api/v1/users/1/businesses'
+      }).then(() => {
+
+      }).catch(() => {
+        
       });
 
       expect(request.get).toHaveBeenCalledWith('/api/v1/users/1/businesses', { params: {} });
     });
 
     it('Sends any "params" included in the options argument', function() {
-      spyOn(request, 'get').and.callThrough();
+      spyOn(request, 'get');
 
       this.collection.fetch({
         params: {
           included: 'projects'
         }
-      });
+      }).then(() => {
+
+      }).catch(() => {
+        
+      });;
 
       expect(request.get).toHaveBeenCalledWith(this.collection.url(), { params: { included: 'projects'} });
     });
@@ -971,7 +976,11 @@ describe('Collection', function() {
       });
 
 
-      this.collection.fetch();
+      this.collection.fetch().then(() => {
+
+      }).catch(() => {
+        
+      });;
 
       expect(this.collection.set).toHaveBeenCalledWith(businesses, { add: true, merge: true, remove: true });
       expect(this.collection.fetching).toBeFalsy();
@@ -995,7 +1004,11 @@ describe('Collection', function() {
       });
 
 
-      this.collection.fetch({ add: true, merge: false, remove: false });
+      this.collection.fetch({ add: true, merge: false, remove: false }).then(() => {
+
+      }).catch(() => {
+        
+      });;
 
       expect(this.collection.set).toHaveBeenCalledWith(businesses, { add: true, merge: false, remove: false });
     });
@@ -1018,7 +1031,11 @@ describe('Collection', function() {
       });
 
 
-      this.collection.fetch({ remove: false });
+      this.collection.fetch({ remove: false }).then(() => {
+
+      }).catch(() => {
+        
+      });;
 
       expect(this.collection.set).toHaveBeenCalledWith(businesses, { add: true, merge: true, remove: false });
     });
@@ -1041,7 +1058,11 @@ describe('Collection', function() {
          }
       });
 
-      this.collection.fetch();
+      this.collection.fetch().then(() => {
+
+      }).catch(() => {
+        
+      });
 
       expect(this.collection.set).not.toHaveBeenCalled();
       expect(this.collection.fetching).toBeFalsy();
@@ -1060,7 +1081,7 @@ describe('Collection', function() {
         "type": "users",
         "attributes": {
           "title": "Mr",
-          "firstName": "Nick",
+          "first_name": "Nick",
           "last_name": "Ryall",
           "email": "nick.ryall@gmail.com",
           "phone": "021552497"
@@ -1092,7 +1113,7 @@ describe('Collection', function() {
       const model = this.collection.create({
         "attributes": {
           "title": "Mr",
-          "firstName": "Nick",
+          "first_name": "Nick",
           "last_name": "Ryall",
           "email": "nick.ryall@gmail.com",
           "phone": "021552497"
@@ -1139,7 +1160,7 @@ describe('Collection', function() {
       this.collection.create({
         "attributes": {
           "title": "Mr",
-          "firstName": "Nick",
+          "first_name": "Nick",
           "last_name": "Ryall",
           "email": "nick.ryall@gmail.com",
           "phone": "021552497"
@@ -1160,7 +1181,11 @@ describe('Collection', function() {
             ]
           }
         }
-      }, { wait: false });
+      }, { wait: false }).then(() => {
+
+      }).catch(() => {
+        
+      });
 
       expect(this.collection.length).toEqual(1);
     });
@@ -1186,7 +1211,7 @@ describe('Collection', function() {
       this.collection.create({
         "attributes": {
           "title": "Mr",
-          "firstName": "Nick",
+          "first_name": "Nick",
           "last_name": "Ryall",
           "email": "nick.ryall@gmail.com",
           "phone": "021552497"
@@ -1223,7 +1248,7 @@ describe('Collection', function() {
       this.collection.create({
         "attributes": {
           "title": "Mr",
-          "firstName": "Nick",
+          "first_name": "Nick",
           "last_name": "Ryall",
           "email": "nick.ryall@gmail.com",
           "phone": "021552497"
@@ -1244,7 +1269,11 @@ describe('Collection', function() {
             ]
           }
         }
-      }, { wait: true });
+      }, { wait: true }).then(() => {
+
+      }).catch(() => {
+        
+      });
 
       expect(this.collection.saving).toBeTruthy();
     });
@@ -1263,7 +1292,7 @@ describe('Collection', function() {
       this.collection.create({
         "attributes": {
           "title": "Mr",
-          "firstName": "Nick",
+          "first_name": "Nick",
           "last_name": "Ryall",
           "email": "nick.ryall@gmail.com",
           "phone": "021552497"
@@ -1310,7 +1339,7 @@ describe('Collection', function() {
       this.collection.create({
         "attributes": {
           "title": "Mr",
-          "firstName": "Nick",
+          "first_name": "Nick",
           "last_name": "Ryall",
           "email": "nick.ryall@gmail.com",
           "phone": "021552497"
@@ -1331,7 +1360,11 @@ describe('Collection', function() {
             ]
           }
         }
-      }, { wait: true });
+      }, { wait: true }).then(() => {
+
+      }).catch(() => {
+        
+      });
 
       expect(this.collection.saving).toBeTruthy();
 
@@ -1364,7 +1397,7 @@ describe('Collection', function() {
       this.collection.create({
         "attributes": {
           "title": "Mr",
-          "firstName": "Nick",
+          "first_name": "Nick",
           "last_name": "Ryall",
           "email": "nick.ryall@gmail.com",
           "phone": "021552497"
@@ -1385,7 +1418,11 @@ describe('Collection', function() {
             ]
           }
         }
-      }, { wait: true });
+      }, { wait: true }).then(() => {
+
+      }).catch(() => {
+        
+      });
 
       expect(this.collection.saving).toBeTruthy();
 

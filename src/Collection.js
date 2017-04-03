@@ -254,7 +254,7 @@ class Collection {
    * use the options to disable adding, changing
    * or removing.
    */
-  @action fetch(options) {
+  @action fetch(options = {}) {
     // Merge in the any options with the default
     options = Object.assign({ 
       url: this.url(),

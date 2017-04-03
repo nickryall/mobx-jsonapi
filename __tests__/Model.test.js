@@ -199,7 +199,7 @@ describe('Model', function() {
     });
 
     it('returns the value of the attribute key given', function() {
-      expect(this.model.getAttribute('firstName')).toEqual('Nick');
+      expect(this.model.getAttribute('first_name')).toEqual('Nick');
     });
   });
 
@@ -510,7 +510,11 @@ describe('Model', function() {
     });
 
     it('Sets the "fetching" request label to truthy', function() {
-      this.model.fetch();
+      this.model.fetch().then(() => {
+
+      }).catch(() => {
+
+      });
 
       expect(this.model.fetching).toBeTruthy();
     });
@@ -530,7 +534,11 @@ describe('Model', function() {
          }
       });
 
-      this.model.fetch();
+      this.model.fetch().then(() => {
+
+      }).catch(() => {
+        
+      });
 
       expect(request.get).toHaveBeenCalledWith(this.model.url(), { params: {} });
     });
@@ -540,6 +548,10 @@ describe('Model', function() {
 
       this.model.fetch({
         url: '/api/users/1'
+      }).then(() => {
+
+      }).catch(() => {
+        
       });
 
       expect(request.get).toHaveBeenCalledWith('/api/users/1', { params: {} });
@@ -552,6 +564,10 @@ describe('Model', function() {
         params: {
           included: 'businesses'
         }
+      }).then(() => {
+
+      }).catch(() => {
+        
       });
 
       expect(request.get).toHaveBeenCalledWith(this.model.url(), { params: { included: 'businesses'} });
@@ -575,7 +591,11 @@ describe('Model', function() {
       });
 
 
-      this.model.fetch();
+      this.model.fetch().then(() => {
+
+      }).catch(() => {
+        
+      });
 
       expect(this.model.set).toHaveBeenCalledWith(user);
     });
@@ -599,7 +619,11 @@ describe('Model', function() {
          }
       });
 
-      this.model.fetch();
+      this.model.fetch().then(() => {
+
+      }).catch(() => {
+        
+      });
 
       expect(this.model.set).not.toHaveBeenCalled();
 
@@ -622,14 +646,22 @@ describe('Model', function() {
     it('Sends patch request to the URL if model has an ID', function() {
       this.patch = spyOn(request, 'patch').and.callThrough();
 
-      this.model.save();
+      this.model.save().then(() => {
+
+      }).catch(() => {
+        
+      });
 
       expect(this.patch.calls.mostRecent().args[0]).toEqual(this.model.url());
     });
 
     it('Sends all attributes and relationships if data argument is missing', function() {
       this.patch = spyOn(request, 'patch').and.callThrough();
-      this.model.save();
+      this.model.save().then(() => {
+
+      }).catch(() => {
+        
+      });
 
       expect(this.patch.calls.mostRecent().args[1]).toEqual({
         data: {
@@ -646,8 +678,12 @@ describe('Model', function() {
 
       this.model.save({
         attributes: {
-          firstName: 'Nick'
+          first_name: 'Nick'
         }
+      }).then(() => {
+
+      }).catch(() => {
+        
       });
 
       expect(this.patch.calls.mostRecent().args[1]).toEqual({
@@ -655,7 +691,7 @@ describe('Model', function() {
           id: '1',
           type: 'people',
           attributes: {
-            firstName: 'Nick'
+            first_name: 'Nick'
           }
         }
       });
@@ -669,6 +705,10 @@ describe('Model', function() {
             }
           }
         }
+      }).then(() => {
+
+      }).catch(() => {
+        
       });
 
       expect(this.patch.calls.mostRecent().args[1]).toEqual({
@@ -688,7 +728,7 @@ describe('Model', function() {
 
       this.model.save({
         attributes: {
-          firstName: 'Nick'
+          first_name: 'Nick'
         },
         relationships: {
           business: {
@@ -698,6 +738,10 @@ describe('Model', function() {
             }
           }
         }
+      }).then(() => {
+
+      }).catch(() => {
+        
       });
 
       expect(this.patch.calls.mostRecent().args[1]).toEqual({
@@ -705,7 +749,7 @@ describe('Model', function() {
           id: '1',
           type: 'people',
           attributes: {
-            firstName: 'Nick'
+            first_name: 'Nick'
           },
           relationships: {
             business: {
@@ -722,34 +766,46 @@ describe('Model', function() {
     it('Immediately updates the attributes on the model if the "wait" option is falsey', function() {
       this.model.save({
         attributes: {
-          firstName: 'Rick'
+          first_name: 'Rick'
         }
       }, {
         wait: false
+      }).then(() => {
+
+      }).catch(() => {
+        
       });
 
-      expect(this.model.getAttribute('firstName')).toEqual('Rick');
+      expect(this.model.getAttribute('first_name')).toEqual('Rick');
     });
 
     it('Does not Immediately update the attributes on the model if the "wait" option is truthy', function() {
       this.model.save({
         attributes: {
-          firstName: 'Rick'
+          first_name: 'Rick'
         }
       }, {
         wait: true
+      }).then(() => {
+
+      }).catch(() => {
+        
       });
 
-      expect(this.model.getAttribute('firstName')).toEqual('Nick');
+      expect(this.model.getAttribute('first_name')).toEqual('Nick');
     });
 
     it('Sets the "saving" request label to truthy if the  "wait" option is truthy', function() {
       this.model.save({
         attributes: {
-          firstName: 'Rick'
+          first_name: 'Rick'
         }
       }, {
         wait: true
+      }).then(() => {
+
+      }).catch(() => {
+        
       });
 
       expect(this.model.saving).toBeTruthy();
@@ -773,7 +829,11 @@ describe('Model', function() {
       });
 
 
-      this.model.save();
+      this.model.save().then(() => {
+
+      }).catch(() => {
+        
+      });
 
       expect(this.model.set).toHaveBeenCalledWith(user);
     });
@@ -799,13 +859,17 @@ describe('Model', function() {
 
       this.model.save({
         attributes: {
-          firstName: 'John'
+          first_name: 'John'
         }
-      }, { wait: false });
+      }, { wait: false }).then(() => {
+
+      }).catch(() => {
+        
+      });
 
       expect(this.model.set).not.toHaveBeenCalled();
 
-      expect(this.model.getAttribute('firstName')).toEqual('Nick');
+      expect(this.model.getAttribute('first_name')).toEqual('Nick');
     });
 
     it('Resets the relationships to the original state if the request fails and wait option is falsy', function() {
@@ -836,7 +900,11 @@ describe('Model', function() {
             }
           }
         }
-      }, { wait: false });
+      }, { wait: false }).then(() => {
+
+      }).catch(() => {
+        
+      });
 
       expect(this.model.set).not.toHaveBeenCalled();
 
@@ -861,6 +929,10 @@ describe('Model', function() {
         email: 'nick.ryall@gmail.com'
       }, {
         wait: true
+      }).then(() => {
+
+      }).catch(() => {
+        
       });
 
       expect(this.model.save).toHaveBeenCalledWith({
@@ -885,7 +957,7 @@ describe('Model', function() {
     });
 
     it('Should merge in the attributes and the relationships', function() {
-      expect(this.model.getAttribute('firstName')).toEqual('Nick');
+      expect(this.model.getAttribute('first_name')).toEqual('Nick');
 
       this.model.set({
         data: {
@@ -893,7 +965,7 @@ describe('Model', function() {
           "type": "people",
           "attributes": {
             "title": "Mr",
-            "firstName": "John",
+            "first_name": "John",
             "email": "nick.ryall@gmail.com",
             "phone": "021552497",
             "created_at": "2016-11-02T01:54:57.444Z",
@@ -922,8 +994,8 @@ describe('Model', function() {
         }
       });
 
-      expect(this.model.getAttribute('firstName')).toEqual('John');
-      expect(this.model.getAttribute('lastName')).toEqual('Ryall');
+      expect(this.model.getAttribute('first_name')).toEqual('John');
+      expect(this.model.getAttribute('last_name')).toEqual('Ryall');
       expect(this.model.getRelationship('projects').data.length).toEqual(2);
     });
 
@@ -936,8 +1008,8 @@ describe('Model', function() {
           "type": "people",
           "attributes": {
             "title": "Mr",
-            "firstName": "John",
-            "lastName": "Nick",
+            "first_name": "John",
+            "last_name": "Nick",
             "email": "nick.ryall@gmail.com",
             "phone": "021552497",
             "created_at": "2016-11-02T01:54:57.444Z",
@@ -987,8 +1059,8 @@ describe('Model', function() {
       this.model = new SubModel({
         "attributes": {
           "title": "Mr",
-          "firstName": "Nick",
-          "lastName": "Ryall",
+          "first_name": "Nick",
+          "last_name": "Ryall",
           "email": "nick.ryall@gmail.com",
           "phone": "021552497",
           "created_at": "2016-11-02T01:54:57.444Z",
@@ -1015,15 +1087,19 @@ describe('Model', function() {
 
     it('Posts all existing data if no new data is passed in', function() {
       this.post = spyOn(request, 'post').and.callThrough();
-      this.model.create();
+      this.model.create().then(() => {
+
+      }).catch(() => {
+        
+      });
 
       expect(this.post.calls.mostRecent().args[1]).toEqual({
         data: {
           "type": "people",
           "attributes": {
             "title": "Mr",
-            "firstName": "Nick",
-            "lastName": "Ryall",
+            "first_name": "Nick",
+            "last_name": "Ryall",
             "email": "nick.ryall@gmail.com",
             "phone": "021552497",
             "created_at": "2016-11-02T01:54:57.444Z",
@@ -1055,6 +1131,10 @@ describe('Model', function() {
         attributes: {
           "phone": "0211912340"
         }
+      }).then(() => {
+
+      }).catch(() => {
+        
       });
 
       expect(this.post.calls.mostRecent().args[1]).toEqual({
@@ -1062,8 +1142,8 @@ describe('Model', function() {
           "type": "people",
           "attributes": {
             "title": "Mr",
-            "firstName": "Nick",
-            "lastName": "Ryall",
+            "first_name": "Nick",
+            "last_name": "Ryall",
             "email": "nick.ryall@gmail.com",
             "phone": "0211912340",
             "created_at": "2016-11-02T01:54:57.444Z",
@@ -1094,8 +1174,8 @@ describe('Model', function() {
         "type": "people",
         "attributes": {
           "title": "Mr",
-          "firstName": "Nick",
-          "lastName": "Ryall",
+          "first_name": "Nick",
+          "last_name": "Ryall",
           "email": "nick.ryall@gmail.com",
           "phone": "0211912340",
           "created_at": "2016-11-02T01:54:57.444Z",
@@ -1120,7 +1200,11 @@ describe('Model', function() {
       };
 
       this.post = spyOn(request, 'post').and.callThrough();
-      this.model.create(data);
+      this.model.create(data).then(() => {
+
+      }).catch(() => {
+        
+      });
 
       expect(this.post.calls.mostRecent().args[1]).toEqual({
         data: data
@@ -1139,8 +1223,8 @@ describe('Model', function() {
                     "id": "1",
                     "attributes": {
                       "title": "Mr",
-                      "firstName": "Timmy",
-                      "lastName": "Ryall",
+                      "first_name": "Timmy",
+                      "last_name": "Ryall",
                       "email": "nick.ryall@gmail.com",
                       "phone": "0211912340",
                       "created_at": "2016-11-02T01:54:57.444Z",
@@ -1160,16 +1244,20 @@ describe('Model', function() {
       this.model.create({
         "attributes": {
           "title": "Mr",
-          "firstName": "Timmy",
-          "lastName": "Ryall",
+          "first_name": "Timmy",
+          "last_name": "Ryall",
           "email": "nick.ryall@gmail.com",
           "phone": "0211912340",
           "created_at": "2016-11-02T01:54:57.444Z",
           "modified_at": "2016-11-02T01:54:57.444Z"
         }
-      }, { wait: false });
+      }, { wait: false }).then(() => {
 
-      expect(this.model.getAttribute('firstName')).toEqual('Timmy');
+      }).catch(() => {
+        
+      });
+
+      expect(this.model.getAttribute('first_name')).toEqual('Timmy');
     });
 
     it('Waits for successful response from server before updating model if "wait" option is truthy', function() {
@@ -1184,8 +1272,8 @@ describe('Model', function() {
                     "id": "1",
                     "attributes": {
                       "title": "Mr",
-                      "firstName": "Timmy",
-                      "lastName": "Ryall",
+                      "first_name": "Timmy",
+                      "last_name": "Ryall",
                       "email": "nick.ryall@gmail.com",
                       "phone": "0211912340",
                       "created_at": "2016-11-02T01:54:57.444Z",
@@ -1205,43 +1293,55 @@ describe('Model', function() {
       this.model.create({
         "attributes": {
           "title": "Mr",
-          "firstName": "Timmy",
-          "lastName": "Ryall",
+          "first_name": "Timmy",
+          "last_name": "Ryall",
           "email": "nick.ryall@gmail.com",
           "phone": "0211912340",
           "created_at": "2016-11-02T01:54:57.444Z",
           "modified_at": "2016-11-02T01:54:57.444Z"
         }
-      }, { wait: true });
+      }, { wait: true }).then(() => {
 
-      expect(this.model.getAttribute('firstName')).toEqual('Nick');
+      }).catch(() => {
+        
+      });
+
+      expect(this.model.getAttribute('first_name')).toEqual('Nick');
 
       // Fast-forward until all timers have been executed
       jest.runAllTimers();
 
 
-      expect(this.model.getAttribute('firstName')).toEqual('Timmy');
+      expect(this.model.getAttribute('first_name')).toEqual('Timmy');
     });
 
     it('Sets the saving request label to truthy if "wait" option is truthy', function() {
       this.model.create({
         "attributes": {
           "title": "Mr",
-          "firstName": "Timmy",
-          "lastName": "Ryall",
+          "first_name": "Timmy",
+          "last_name": "Ryall",
           "email": "nick.ryall@gmail.com",
           "phone": "0211912340",
           "created_at": "2016-11-02T01:54:57.444Z",
           "modified_at": "2016-11-02T01:54:57.444Z"
         }
-      }, { wait: true });
+      }, { wait: true }).then(() => {
+
+      }).catch(() => {
+        
+      });
 
       expect(this.model.saving).toBeTruthy();
     });
 
     it('sends the post request to the model url', function() {
       this.post = spyOn(request, 'post').and.callThrough();
-      this.model.create();
+      this.model.create().then(() => {
+
+      }).catch(() => {
+        
+      });
 
       expect(this.post.calls.mostRecent().args[0]).toEqual(this.model.url());
     });
@@ -1250,6 +1350,10 @@ describe('Model', function() {
       this.post = spyOn(request, 'post').and.callThrough();
       this.model.create(null, {
         url: '/api/v1/people/1'
+      }).then(() => {
+
+      }).catch(() => {
+        
       });
 
       expect(this.post.calls.mostRecent().args[0]).toEqual('/api/v1/people/1');
@@ -1272,7 +1376,11 @@ describe('Model', function() {
          }
       });
 
-      this.model.create();
+      this.model.create().then(() => {
+
+      }).catch(() => {
+        
+      });
 
       expect(this.model.set).toHaveBeenCalledWith(user);
     });
@@ -1298,13 +1406,17 @@ describe('Model', function() {
 
       this.model.create({
         attributes: {
-          firstName: 'John'
+          first_name: 'John'
         }
-      }, { wait: false });
+      }, { wait: false }).then(() => {
+
+      }).catch(() => {
+        
+      });
 
       expect(this.model.set).not.toHaveBeenCalled();
 
-      expect(this.model.getAttribute('firstName')).toEqual('Nick');
+      expect(this.model.getAttribute('first_name')).toEqual('Nick');
     });
   });
 
@@ -1335,7 +1447,11 @@ describe('Model', function() {
     });
 
     it('should immediately remove the model from the parent collection if the "wait" option is falsy', function() {
-      this.collection.getModelAt(0).destroy({ wait: false });
+      this.collection.getModelAt(0).destroy({ wait: false }).then(() => {
+
+      }).catch(() => {
+        
+      });
       expect(this.collection.length).toEqual(1);
     });
 
@@ -1356,7 +1472,11 @@ describe('Model', function() {
          }
       });
 
-      this.collection.getModelAt(0).destroy({ wait: false });
+      this.collection.getModelAt(0).destroy({ wait: false }).then(() => {
+
+      }).catch(() => {
+        
+      });
       expect(this.collection.length).toEqual(2);
       expect(this.collection.getModelAt(0).deleting).toBeFalsy();
     });
@@ -1364,13 +1484,21 @@ describe('Model', function() {
     it('Sends delete request to the URL of the model', function() {
       const deleteRequest = spyOn(request, 'delete').and.callThrough();
 
-      this.collection.getModelAt(0).destroy();
+      this.collection.getModelAt(0).destroy().then(() => {
+
+      }).catch(() => {
+        
+      });
 
       expect(deleteRequest).toHaveBeenCalledWith(`${this.collection.url()}/1`);
     });
 
     it('Sets the "deleting" requestLabel to truthy if "wait" option if truthy', function() {
-      this.collection.getModelAt(0).destroy({ wait: true });
+      this.collection.getModelAt(0).destroy({ wait: true }).then(() => {
+
+      }).catch(() => {
+        
+      });;
       expect(this.collection.getModelAt(0).deleting).toBeTruthy();
     });
 
@@ -1390,7 +1518,11 @@ describe('Model', function() {
         }
       });
 
-      this.collection.getModelAt(0).destroy({ wait: true });
+      this.collection.getModelAt(0).destroy({ wait: true }).then(() => {
+
+      }).catch(() => {
+        
+      });
 
       expect(this.collection.length).toEqual(2);
       expect(this.collection.getModelAt(0).deleting).toBeTruthy();
