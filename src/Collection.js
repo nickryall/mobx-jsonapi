@@ -266,8 +266,6 @@ class Collection {
 
     this.setRequestLabel('fetching', true);
 
-    const url = options.url ? options.url : this.url();
-
     return new Promise((resolve, reject) => {
       // Optionally the request above could also be done as
       request.get(options.url, {
